@@ -57,5 +57,14 @@ def get_users():
     users_list = [{'id': user.id, 'username': user.username} for user in users]
     return {"result": users_list}
 
+@app.route('/get_users_ids', methods=['GET'])
+def get_users_ids():
+    # Retrieve only the 'id' column from the Users table
+    user_ids = Users.query.with_entities(Users.id).all()
+
+    # Convert the list of tuples to a list of integers for JSON response
+    id_list = [user_id[0] for user_id in user_ids]
+    return {"result": id_list}
+
 if __name__ == '__main__':
     app.run(debug=True)
