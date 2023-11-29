@@ -78,5 +78,23 @@ def get_users_ids():
     id_list = [user_id[0] for user_id in user_ids]
     return {"result": id_list}
 
+@app.route('/test_add_item', methods=['POST'])
+def test_add_item():
+    byte_data = request.data
+    #print(request.form)
+    string_data = byte_data.decode('utf-8')
+    json_request = json.loads(string_data)
+
+    new_item = Items(name=json_request["name"], user_id=int(json_request["user_id"]))
+
+    # Add the new user to the database session
+    db.session.add(new_item)
+
+    # Commit the changes to the database
+    db.session.commit()
+
+    #users = User.query.all()
+    return {"result": json_request["name"]+" is added"}
+
 if __name__ == '__main__':
     app.run(debug=True)
