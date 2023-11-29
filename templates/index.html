@@ -65,10 +65,10 @@
 
     <a id="stealth_downloader" class="hidden"></a>
 
-    <script src="jsx/jwt-decode.js"></script>
-	<script src="jsx/jquery.min.js"></script>
-	<script src="jsx/babel.min.js"></script>
+    <script src="{{ url_for('static', filename='jsx/jwt-decode.js') }}"></script>
+	<script src="{{ url_for('static', filename='jsx/jquery.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='jsx/babel.min.js') }}"></script>
 
-    <script type="text/babel" src="script.js"></script>
+    <script type="text/babel" src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
