@@ -10,7 +10,7 @@ let postSomething = function() {
 	let query = {
 		"username": test_txt.value
 	}
-	fetch('test_post',{
+	fetch('test_post_db',{
 		  method: "POST",
 		  headers: {
 		      "Content-Type": "application/json",
@@ -23,7 +23,7 @@ let postSomething = function() {
    	
    	let data = json.result
    	console.log(data)
-   	table_container.innerHTML = data[0]
+   	table_container.innerHTML = data
    	
    }).catch(e => {
    	console.error(e)
