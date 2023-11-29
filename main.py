@@ -11,6 +11,14 @@ class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
 
+class Items(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+
+    # Specify the custom table name
+    __tablename__ = 'items'
+
 # Use app.app_context() to create an application context
 with app.app_context():
     # Create the database tables
