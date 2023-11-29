@@ -19,6 +19,14 @@ class Items(db.Model):
     # Specify the custom table name
     __tablename__ = 'items'
 
+"""
+Just to clarify for future reference, 
+when making changes to your database schema, 
+especially during development, 
+you might need to handle database migrations to apply these changes without losing existing data. 
+Tools like Flask-Migrate can be helpful for managing database migrations in Flask applications.
+"""
+
 # Use app.app_context() to create an application context
 with app.app_context():
     # Create the database tables
