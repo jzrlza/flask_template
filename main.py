@@ -48,5 +48,14 @@ def test_post_db():
     #users = User.query.all()
     return {"result": json_request["username"]+" is added"}
 
+@app.route('/get_users', methods=['GET'])
+def get_users():
+    # Retrieve all users from the database
+    users = Users.query.all()
+
+    # Convert the list of users to a list of dictionaries for JSON response
+    users_list = [{'id': user.id, 'username': user.username} for user in users]
+    return {"result": users_list}
+
 if __name__ == '__main__':
     app.run(debug=True)
