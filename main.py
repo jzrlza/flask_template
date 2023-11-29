@@ -28,6 +28,10 @@ with app.app_context():
 def home():
     return render_template('index.html')
 
+@app.route('/item_adder', methods=['GET'])
+def item_adder():
+    return render_template('item_adder.html')
+
 @app.route('/test_post', methods=['POST'])
 def test_post():
     byte_data = request.data
