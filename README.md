@@ -18,4 +18,4 @@ To change database without data loss, make a new "nullable" columns into the mod
 1. flask db init
 2. flask db migrate -m "string"
 3. flask db upgrade
-4. then delete the migration/ folder in there everytime you finishes
+4. And then now then delete the migration/ folder in there everytime you finishes
