@@ -17,7 +17,7 @@ http://localhost:5000/apidocs for docs (may not as accurate as FastAPI's)
 
 -------------------
 
-To change database without data loss, make a new "nullable" columns into the models and then in command line (same directory) :
+To change database without data loss, make some new "nullable" columns into the models and then in command line (same directory) :
 (make sure the main app file is named app.py)
 1. flask db init
 2. flask db migrate -m "string"
