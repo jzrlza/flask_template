@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flasgger import Swagger
+import flask_migrate
 from datetime import timedelta #auth
 import json
 
@@ -12,9 +13,12 @@ swagger = Swagger(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@localhost:5432/testdbflask'
 db = SQLAlchemy(app)
 
+migrate = flask_migrate.Migrate(app, db)
+
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=True)
 
 class Items(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -23,14 +27,6 @@ class Items(db.Model):
 
     # Specify the custom table name
     __tablename__ = 'items'
-
-"""
-Just to clarify for future reference, 
-when making changes to your database schema, 
-especially during development, 
-you might need to handle database migrations to apply these changes without losing existing data. 
-Tools like Flask-Migrate can be helpful for managing database migrations in Flask applications.
-"""
 
 # Use app.app_context() to create an application context
 with app.app_context():

@@ -1,4 +1,5 @@
 flask
 flask_sqlalchemy
 flasgger
+flask_migrate
 psycopg2
