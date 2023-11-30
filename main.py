@@ -74,7 +74,7 @@ def test_post():
         schema:
           type: object
           properties:
-            data:
+            username:
               type: string
         example:
           username: "username"
@@ -102,7 +102,7 @@ def test_post_db():
         schema:
           type: object
           properties:
-            data:
+            username:
               type: string
         example:
           username: "username"
@@ -172,7 +172,7 @@ def test_add_item():
         schema:
           type: object
           properties:
-            data:
+            name:
               type: string
         example:
           name: "item_name"
