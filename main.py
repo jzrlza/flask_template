@@ -1,9 +1,14 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+from flasgger import Swagger
 from datetime import timedelta #auth
 import json
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
+
+# Create a Swagger object
+swagger = Swagger(app)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@localhost:5432/testdbflask'
 db = SQLAlchemy(app)
 
@@ -32,16 +37,39 @@ with app.app_context():
     # Create the database tables
     db.create_all()
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def home():
+    """
+    This is the docstring for the index route.
+
+    It provides information about the GET method.
+    ---
+    responses:
+      200:
+        description: Successful response
+    """
     return render_template('index.html')
 
 @app.route('/item_adder', methods=['GET'])
 def item_adder():
+    """
+    This is the docstring for the add item
+    ---
+    responses:
+      200:
+        description: Successful response
+    """
     return render_template('item_adder.html')
 
 @app.route('/test_post', methods=['POST'])
 def test_post():
+    """
+    This is the docstring for the request
+    ---
+    responses:
+      200:
+        description: {"result": [final_result]}
+    """
     byte_data = request.data
     #print(request.form)
     string_data = byte_data.decode('utf-8')
@@ -51,6 +79,13 @@ def test_post():
 
 @app.route('/test_post_db', methods=['POST'])
 def test_post_db():
+    """
+    This is the docstring for the request
+    ---
+    responses:
+      200:
+        description: ...
+    """
     byte_data = request.data
     #print(request.form)
     string_data = byte_data.decode('utf-8')
@@ -70,6 +105,13 @@ def test_post_db():
 
 @app.route('/get_users', methods=['GET'])
 def get_users():
+    """
+    This is the docstring for the request
+    ---
+    responses:
+      200:
+        description: ...
+    """
     # Retrieve all users from the database
     users = Users.query.all()
 
@@ -79,6 +121,13 @@ def get_users():
 
 @app.route('/get_users_ids', methods=['GET'])
 def get_users_ids():
+    """
+    This is the docstring for the request
+    ---
+    responses:
+      200:
+        description: ...
+    """
     # Retrieve only the 'id' column from the Users table
     user_ids = Users.query.with_entities(Users.id).all()
 
@@ -88,6 +137,13 @@ def get_users_ids():
 
 @app.route('/test_add_item', methods=['POST'])
 def test_add_item():
+    """
+    This is the docstring for the request
+    ---
+    responses:
+      200:
+        description: ...
+    """
     byte_data = request.data
     #print(request.form)
     string_data = byte_data.decode('utf-8')
