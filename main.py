@@ -76,8 +76,6 @@ def test_post():
           properties:
             username:
               type: string
-        example:
-          username: "username"
     responses:
       200:
         description: {"result": [final_result]}
@@ -104,8 +102,6 @@ def test_post_db():
           properties:
             username:
               type: string
-        example:
-          username: "username"
     responses:
       200:
         description: ...
@@ -174,8 +170,6 @@ def test_add_item():
           properties:
             name:
               type: string
-        example:
-          name: "item_name"
     responses:
       200:
         description: ...
