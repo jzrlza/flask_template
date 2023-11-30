@@ -66,6 +66,18 @@ def test_post():
     """
     This is the docstring for the request
     ---
+    parameters:
+      - name: body
+        in: body
+        description: JSON body
+        required: true
+        schema:
+          type: object
+          properties:
+            data:
+              type: string
+        example:
+          username: "username"
     responses:
       200:
         description: {"result": [final_result]}
@@ -82,6 +94,18 @@ def test_post_db():
     """
     This is the docstring for the request
     ---
+    parameters:
+      - name: body
+        in: body
+        description: JSON body
+        required: true
+        schema:
+          type: object
+          properties:
+            data:
+              type: string
+        example:
+          username: "username"
     responses:
       200:
         description: ...
@@ -140,6 +164,18 @@ def test_add_item():
     """
     This is the docstring for the request
     ---
+    parameters:
+      - name: body
+        in: body
+        description: JSON body
+        required: true
+        schema:
+          type: object
+          properties:
+            data:
+              type: string
+        example:
+          name: "item_name"
     responses:
       200:
         description: ...
