@@ -1,11 +1,15 @@
 # flask_template
 
 before running :
-in console/terminal/command prompt of the project's directory : pip install -r requirement.txt
+in console/terminal/command prompt of the project's directory : 
+
+1. pip install -r requirement.txt
 
 to run :
 
-in console/terminal/command prompt of the project's directory : python main.py
+in console/terminal/command prompt of the project's directory : 
+
+2. python app.py
 
 Then visit http://localhost:5000/ (index.html is default)
 
