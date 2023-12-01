@@ -346,9 +346,17 @@ def get_items_by_user_id(user_id):
     """
     Get user by user_id (int)
     ---
+    parameters:
+      - name: user_id
+        in: query
+        type: integer
+        required: true
+        description: User ID to retrieve information.
     responses:
       200:
         description: ...
+      404:
+        description: User not found.
     """
 
     # Query the database to get items based on the user ID
@@ -356,7 +364,7 @@ def get_items_by_user_id(user_id):
 
     if user is None:
       error_code = 400
-      error_dict = generate_error(error_code, "invalid user")
+      error_dict = generate_error(error_code, "no such user")
       return error_dict, error_code
 
     items_list = [{'id': item.id, 'name': item.name, "user_id": item.user_id} for item in user.items]
