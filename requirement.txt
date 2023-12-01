@@ -2,4 +2,5 @@ flask
 flask_sqlalchemy
 flasgger
 flask_migrate
+flask_security
 psycopg2

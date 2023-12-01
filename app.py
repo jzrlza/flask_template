@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flasgger import Swagger
 import flask_migrate
+from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import timedelta #auth
 import json
 
@@ -11,6 +12,7 @@ app = Flask(__name__, static_url_path='/static', static_folder='static')
 swagger = Swagger(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@localhost:5432/testdbflask'
+app.config['SECRET_KEY'] = 'any_String'
 db = SQLAlchemy(app)
 
 migrate = flask_migrate.Migrate(app, db)
@@ -21,7 +23,13 @@ class Users(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=True)
     is_active = db.Column(db.Boolean, default=True, nullable=False)
     is_admin = db.Column(db.Boolean, default=False, nullable=False)
-    #password = db.Column(db.String(120), default="1234", unique=False, nullable=False)
+    password = db.Column(db.String(255), default="password", unique=False, nullable=False)
+
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
 
 class Items(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -103,6 +111,8 @@ def test_post_db():
           properties:
             username:
               type: string
+            password:
+              type: string
     responses:
       200:
         description: ...
@@ -114,6 +124,7 @@ def test_post_db():
 
     # Create a new user instance
     new_user = Users(username=json_request["username"])
+    new_user.set_password(json_request["password"])
 
     # Add the new user to the database session
     db.session.add(new_user)

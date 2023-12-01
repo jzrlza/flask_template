@@ -5,11 +5,13 @@ console.log("Flask JS")
 let test_btn = document.getElementById("button__scrape")
 let test_result_btn = document.getElementById("button__export")
 let test_txt = document.getElementById("test_txt")
+let test_pwd = document.getElementById("test_pwd")
 let table_container = document.getElementById("table_container")
 let postSomething = function() {
 	//console.log(input__keyword.value)
 	let query = {
-		"username": test_txt.value
+		"username": test_txt.value,
+		"password": test_pwd.value
 	}
 	fetch('test_post_db',{
 		  method: "POST",
