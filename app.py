@@ -19,6 +19,8 @@ db = SQLAlchemy(app)
 migrate = flask_migrate.Migrate(app, db)
 
 #------------------------------------------------
+#DB Models
+#------------------------------------------------
 
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -53,6 +55,8 @@ with app.app_context():
     db.create_all()
 
 #------------------------------------------------
+#Error Template
+#------------------------------------------------
 
 error_response = {
   'code': 400,
@@ -70,6 +74,8 @@ def generate_error(code, message) :
   error_dict["message"] = message
   return error_dict
 
+#------------------------------------------------
+#Routings
 #------------------------------------------------
 
 @app.route('/', methods=['GET'])
@@ -107,6 +113,8 @@ def login():
     """
     return render_template('login.html')
 
+#------------------------------------------------
+#Requests/Responses
 #------------------------------------------------
 
 @app.route('/test_post', methods=['POST'])
