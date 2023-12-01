@@ -348,7 +348,7 @@ def get_items_by_user_id(user_id):
     ---
     parameters:
       - name: user_id
-        in: query
+        in: path
         type: integer
         required: true
         description: User ID to retrieve information.
