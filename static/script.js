@@ -9,6 +9,9 @@ let test_pwd = document.getElementById("test_pwd")
 let table_container = document.getElementById("table_container")
 let postSomething = function() {
 	//console.log(input__keyword.value)
+	if (test_txt.value == "" || test_pwd.value == "") {
+		return
+	}
 	let query = {
 		"username": test_txt.value,
 		"password": test_pwd.value
