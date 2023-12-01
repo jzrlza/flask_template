@@ -24,7 +24,7 @@ let authenUser = function() {
    	if (response.status < 400) {
    		return response.json()
    	} else {
-   		throw response
+   		throw response.json()
    	}
    	
    })
@@ -35,8 +35,10 @@ let authenUser = function() {
    	table_container.innerHTML = data
    	
    }).catch(e => {
-   	console.log(e)
-   	//table_container.innerHTML = data
+   	e.then(msg => {
+   		console.log(msg)
+   		table_container.innerHTML = msg.message
+   	})
    })
 }
 button__login.onclick = authenUser

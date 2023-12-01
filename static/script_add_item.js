@@ -27,7 +27,10 @@ let getInitialValues = function() {
    	
    	
    }).catch(e => {
-   	console.error(e)
+   	e.then(msg => {
+   		console.log(msg)
+   		table_container.innerHTML = msg.message
+   	})
    })
 }
 getInitialValues()
@@ -64,7 +67,10 @@ let postAnItem = function() {
    	table_container.innerHTML = data
    	
    }).catch(e => {
-   	console.error(e)
+   	e.then(msg => {
+   		console.log(msg)
+   		table_container.innerHTML = msg.message
+   	})
    })
 }
 button__add.onclick = postAnItem

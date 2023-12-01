@@ -36,7 +36,10 @@ let postSomething = function() {
    	table_container.innerHTML = data
    	
    }).catch(e => {
-   	console.error(e)
+   	e.then(msg => {
+   		console.log(msg)
+   		table_container.innerHTML = msg.message
+   	})
    })
 }
 let getSomething = function() {
@@ -63,7 +66,10 @@ let getSomething = function() {
    	
    	
    }).catch(e => {
-   	console.error(e)
+   	e.then(msg => {
+   		console.log(msg)
+   		table_container.innerHTML = msg.message
+   	})
    })
 }
 test_btn.onclick = postSomething
