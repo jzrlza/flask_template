@@ -16,6 +16,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:1234@localhost:54
 app.config['SECRET_KEY'] = 'any_String'
 db = SQLAlchemy(app)
 
+TOKEN_EXPIRY_DAYS = 7
+
 migrate = flask_migrate.Migrate(app, db)
 
 #------------------------------------------------
@@ -243,7 +245,7 @@ def authen_token():
         payload = {
             'user_id': user.id,  # Replace with the actual user ID
             'username': user.username,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1)  # Token expiration time
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=TOKEN_EXPIRY_DAYS)  # Token expiration time
         }
         token = jwt.encode(payload, app.config['SECRET_KEY'], algorithm='HS256')
 
