@@ -272,6 +272,11 @@ def test_add_item():
     string_data = byte_data.decode('utf-8')
     json_request = json.loads(string_data)
 
+    if json_request["user_id"] < 0 :
+      error_code = 400
+      error_dict = generate_error(error_code, "invalid user")
+      return error_dict, error_code
+
     new_item = Items(name=json_request["name"], user_id=int(json_request["user_id"]))
 
     # Add the new user to the database session
