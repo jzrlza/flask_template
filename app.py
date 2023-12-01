@@ -18,6 +18,8 @@ db = SQLAlchemy(app)
 
 migrate = flask_migrate.Migrate(app, db)
 
+#------------------------------------------------
+
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
@@ -43,10 +45,14 @@ class Items(db.Model):
     # Specify the custom table name
     __tablename__ = 'items'
 
+#------------------------------------------------
+
 # Use app.app_context() to create an application context
 with app.app_context():
     # Create the database tables
     db.create_all()
+
+#------------------------------------------------
 
 error_response = {
   'code': 400,
@@ -63,6 +69,8 @@ def generate_error(code, message) :
   error_dict["error"] = error_code_map[code]
   error_dict["message"] = message
   return error_dict
+
+#------------------------------------------------
 
 @app.route('/', methods=['GET'])
 def home():
@@ -98,6 +106,8 @@ def login():
         description: Successful response
     """
     return render_template('login.html')
+
+#------------------------------------------------
 
 @app.route('/test_post', methods=['POST'])
 def test_post():
