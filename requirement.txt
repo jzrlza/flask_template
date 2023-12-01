@@ -3,3 +3,5 @@ flask_sqlalchemy
 flasgger
 flask_migrate
 psycopg2
+gunicorn
+waitress

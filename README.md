@@ -28,3 +28,15 @@ Make sure to keep the migration folder alive, because every upgrade will check p
 If previosu versions not found, go to table "alembic_version" and delete all rows there (or speficic rows)
 
 - DELETE FROM alembic_version WHERE version_num = 'version_id';
+
+-------------------
+
+Deployment :
+
+1. Running Production Server on Windows
+- waitress-serve --host=0.0.0.0 --port=8000 app:app
+2. Running Production Server on Ubuntu (using Docker image file is also recommended)
+- gunicorn -w 4 app:app
+- "-w 4" specifies the number of worker processes. You can adjust this based on your server's capabilities.
+
+http://localhost:8000 is to access it locally, you may replace "localhost" with the server machine's IP address or more practically domain name (which must be registered first and install certificates first).

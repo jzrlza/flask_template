@@ -375,4 +375,4 @@ def get_items_by_user_id(user_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
