@@ -25,6 +25,7 @@ class Users(db.Model):
     is_active = db.Column(db.Boolean, default=True, nullable=False)
     is_admin = db.Column(db.Boolean, default=False, nullable=False)
     password = db.Column(db.String(255), unique=False, nullable=False) #hashed
+    items = db.relationship('Items', backref='owner', lazy=True)
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -278,7 +279,7 @@ def test_add_item():
     string_data = byte_data.decode('utf-8')
     json_request = json.loads(string_data)
 
-    if json_request["user_id"] < 0 :
+    if int(json_request["user_id"]) < 0 :
       error_code = 400
       error_dict = generate_error(error_code, "invalid user")
       return error_dict, error_code
@@ -293,6 +294,38 @@ def test_add_item():
 
     #users = User.query.all()
     return {"result": json_request["name"]+" is added"}
+
+@app.route('/get_items', methods=['GET'])
+def get_items():
+    """
+    This is the docstring for the request
+    ---
+    responses:
+      200:
+        description: ...
+    """
+    # Retrieve all users from the database
+    items = Items.query.all()
+
+    # Convert the list of users to a list of dictionaries for JSON response
+    items_list = [{'id': item.id, 'name': item.name, "user_id": item.user_id} for item in items]
+    return {"result": items_list}
+
+# Route to get items by user ID
+@app.route('/item/<int:user_id>', methods=['GET'])
+def get_items_by_user_id(user_id):
+    # Query the database to get items based on the user ID
+    user = Users.query.get(user_id)
+
+    if user is None:
+      error_code = 400
+      error_dict = generate_error(error_code, "invalid user")
+      return error_dict, error_code
+
+    items_list = [{'id': item.id, 'name': item.name} for item in user.items]
+
+    return {"result": items_list}
+
 
 if __name__ == '__main__':
     app.run(debug=True)
