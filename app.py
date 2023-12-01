@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, abort, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flasgger import Swagger
 import flask_migrate
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import timedelta #auth
+import datetime
 import json
+import jwt
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
@@ -23,7 +24,7 @@ class Users(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=True)
     is_active = db.Column(db.Boolean, default=True, nullable=False)
     is_admin = db.Column(db.Boolean, default=False, nullable=False)
-    password = db.Column(db.String(255), default="password", unique=False, nullable=False)
+    password = db.Column(db.String(255), unique=False, nullable=False) #hashed
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
@@ -45,6 +46,22 @@ class Items(db.Model):
 with app.app_context():
     # Create the database tables
     db.create_all()
+
+error_response = {
+  'code': 400,
+  'error': '',
+  'message': ''
+}
+error_code_map = {
+  400 : "400: Bad Request"
+}
+def generate_error(code, message) :
+  error_dict = error_response.copy()
+  error_code = code
+  error_dict['code'] = code
+  error_dict["error"] = error_code_map[code]
+  error_dict["message"] = message
+  return error_dict
 
 @app.route('/', methods=['GET'])
 def home():
@@ -69,6 +86,17 @@ def item_adder():
         description: Successful response
     """
     return render_template('item_adder.html')
+
+@app.route('/login', methods=['GET'])
+def login():
+    """
+    This is the docstring for the add item
+    ---
+    responses:
+      200:
+        description: Successful response
+    """
+    return render_template('login.html')
 
 @app.route('/test_post', methods=['POST'])
 def test_post():
@@ -134,6 +162,54 @@ def test_post_db():
 
     #users = User.query.all()
     return {"result": json_request["username"]+" is added"}
+
+@app.route('/authen_token', methods=['POST'])
+def authen_token():
+    """
+    Login
+    ---
+    parameters:
+      - name: body
+        in: body
+        description: JSON body
+        required: true
+        schema:
+          type: object
+          properties:
+            username:
+              type: string
+            password:
+              type: string
+    responses:
+      200:
+        description: ...
+    """
+    byte_data = request.data
+    #print(request.form)
+    string_data = byte_data.decode('utf-8')
+    json_request = json.loads(string_data)
+
+    # verifying a password
+    user = Users.query.filter_by(username=json_request["username"]).first()
+    if user is None :
+      error_code = 400
+      error_dict = generate_error(error_code, "no such user")
+      return error_dict, error_code
+    else :
+      if not user.check_password(json_request["password"]):
+        error_code = 400
+        error_dict = generate_error(error_code, "password wrong")
+        return error_dict, error_code
+      else:
+        payload = {
+            'user_id': user.id,  # Replace with the actual user ID
+            'username': user.username,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1)  # Token expiration time
+        }
+        token = jwt.encode(payload, app.config['SECRET_KEY'], algorithm='HS256')
+
+        # Return the token in the response
+        return {'token': token}
 
 @app.route('/get_users', methods=['GET'])
 def get_users():
