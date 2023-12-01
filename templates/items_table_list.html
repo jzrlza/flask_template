@@ -1,0 +1,79 @@
+<html>
+<head>
+    <title>List Items</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='res/bootstrap.min.css') }}./">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1 class="header">List de itemos</h1>
+
+    <!--
+    <label class="input_label">
+    	<span class="input_label_text">Keyword</span>
+    	<input id="input__keyword" class="input_box" type="text" value="บาท"/>
+    </label>
+
+    <br>
+
+    <label class="input_label">
+    	<span class="input_label_text">URLs</span>
+    	<input id="input__url" class="input_box" type="text" value="https://www.dtac.co.th/postpaid/products/package.html"/>
+    </label>
+
+    <br>
+
+    <label class="input_label">
+    	<span class="input_label_text">Scrape Mode</span>
+    	<select id="input__mode" class="input_box" value="0">
+    		<option value="0">DTAC</option>
+    		<option value="1">True</option>
+    		<option value="2">AIS</option>
+    	</select>
+    </label>
+    -->
+
+    <div class="buttons_container">
+    <label for="users_select">Choose a user:</label>
+
+    <select id="users_select">
+        <option value="-1">- ALL -</option>
+      <!--<option value="id">username</option>-->
+    </select>
+
+    </div>
+
+    <div id="table_container">
+    <table id="data_displayer_table">
+    <!--<thead>
+        <tr>
+            <th>name</th>
+            <th>height</th>
+            <th>place</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Monte Falco</td>
+            <td>1658</td>
+            <td>Parco Foreste Casentinesi</td>
+        </tr>
+        <tr>
+            <td>Monte Falterona</td>
+            <td>1654</td>
+            <td>Parco Foreste Casentinesi</td>
+        </tr>
+        </tbody>
+        -->
+    </table> 
+    </div>
+
+    <a id="stealth_downloader" class="hidden"></a>
+
+    <script src="{{ url_for('static', filename='jsx/jwt-decode.js') }}"></script>
+	<script src="{{ url_for('static', filename='jsx/jquery.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='jsx/babel.min.js') }}"></script>
+
+    <script type="text/babel" src="{{ url_for('static', filename='script_list_items.js') }}"></script>
+</body>
+</html>

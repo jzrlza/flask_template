@@ -113,6 +113,17 @@ def login():
     """
     return render_template('login.html')
 
+@app.route('/items_table_list', methods=['GET'])
+def items_table_list():
+    """
+    This is the docstring for the add item
+    ---
+    responses:
+      200:
+        description: Successful response
+    """
+    return render_template('items_table_list.html')
+
 #------------------------------------------------
 #Requests/Responses
 #------------------------------------------------
@@ -340,7 +351,7 @@ def get_items_by_user_id(user_id):
       error_dict = generate_error(error_code, "invalid user")
       return error_dict, error_code
 
-    items_list = [{'id': item.id, 'name': item.name} for item in user.items]
+    items_list = [{'id': item.id, 'name': item.name, "user_id": item.user_id} for item in user.items]
 
     return {"result": items_list}
 
