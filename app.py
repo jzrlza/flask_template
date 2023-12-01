@@ -151,6 +151,11 @@ def test_post_db():
     json_request = json.loads(string_data)
 
     # Create a new user instance
+    user = Users.query.filter_by(username=json_request["username"]).first()
+    if not user is None :
+      error_code = 400
+      error_dict = generate_error(error_code, "user already exists")
+      return error_dict, error_code
     new_user = Users(username=json_request["username"])
     new_user.set_password(json_request["password"])
 

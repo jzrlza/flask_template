@@ -25,7 +25,7 @@ let postSomething = function() {
    	if (response.status < 400) {
    		return response.json()
    	} else {
-   		throw response
+   		throw response.json()
    	}
    	
    })
@@ -51,7 +51,7 @@ let getSomething = function() {
    	if (response.status < 400) {
    		return response.json()
    	} else {
-   		throw response
+   		throw response.json()
    	}
    	
    })
