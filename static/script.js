@@ -21,7 +21,14 @@ let postSomething = function() {
 		    },
 		  body: JSON.stringify(query)
 		})
-   .then(response => response.json())
+   .then(response => {
+   	if (response.status < 400) {
+   		return response.json()
+   	} else {
+   		throw response
+   	}
+   	
+   })
    .then(json => {
    	
    	let data = json.result
@@ -37,7 +44,14 @@ let getSomething = function() {
 	fetch('get_users',{
 		  method: "GET"
 		})
-   .then(response => response.json())
+   .then(response => {
+   	if (response.status < 400) {
+   		return response.json()
+   	} else {
+   		throw response
+   	}
+   	
+   })
    .then(json => {
    	
    	let data = json.result
