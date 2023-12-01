@@ -343,6 +343,14 @@ def get_items():
 # Route to get items by user ID
 @app.route('/item/<int:user_id>', methods=['GET'])
 def get_items_by_user_id(user_id):
+    """
+    Get user by user_id (int)
+    ---
+    responses:
+      200:
+        description: ...
+    """
+
     # Query the database to get items based on the user ID
     user = Users.query.get(user_id)
 
