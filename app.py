@@ -144,6 +144,8 @@ def test_post_db():
     responses:
       200:
         description: ...
+      400:
+        description: bad req
     """
     byte_data = request.data
     #print(request.form)
@@ -188,6 +190,8 @@ def authen_token():
     responses:
       200:
         description: ...
+      400:
+        description: bad req
     """
     byte_data = request.data
     #print(request.form)
@@ -266,6 +270,8 @@ def test_add_item():
     responses:
       200:
         description: ...
+      400:
+        description: bad req
     """
     byte_data = request.data
     #print(request.form)
